@@ -16,8 +16,6 @@ def get_champion_list(span):
 def main():
     partidas = []
     tabela_atual = 4
-    partida_atual = 3
-
 
     # Pagina Url Desejada
     url = 'https://lol.fandom.com/wiki/LCK/2021_Season/Spring_Season/Match_History'
@@ -52,9 +50,24 @@ def main():
             Partida(data, patch, team_blue_side, team_red_side, winner, bans_blue_side, bans_red_side, picks_blue_side,
                     picks_red_side))
 
-    for partida in partidas:
-        partida.get_winner()
-        print()
+    blue_aux = 0
+    red_aux = 0
+    winner_blue_side = []
+    winner_red_side = []
+    chunk_list = [partidas[i:i + 10] for i in range(0, len(partidas), 10)]
+
+    for chunk in chunk_list:
+        for partida in chunk:
+            if partida.get_winner() == 'red':
+                red_aux += 1
+            else:
+                blue_aux += 1
+        winner_red_side.append(red_aux)
+        winner_blue_side.append(blue_aux)
+
+    print(f'Vezes vencidas lado azul {winner_blue_side}')
+    print(f'Vezes vencidas lado vermelho {winner_red_side}')
+
 
 
 if __name__ == '__main__':

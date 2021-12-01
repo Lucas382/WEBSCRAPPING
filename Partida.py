@@ -19,10 +19,16 @@ class Partida:
 
     def get_winner(self):
         if self.winner == self.team_blue_side:
-            print(f'{self.winner} Venceu do lado azul')
-            print(f'Usando {self.picks_blue_side}')
-            print(f'Contra {self.picks_red_side}')
+            return 'blue'
         else:
-            print(f'{self.winner} Venceu do lado vermelho')
-            print(f'Usando {self.picks_red_side}')
-            print(f'Contra {self.picks_blue_side}')
+            return 'red'
+
+    def champion_win_side(self,champion):
+        if champion in self.picks_blue_side and self.winner == self.team_blue_side:
+            return "blue"
+
+        elif champion in self.picks_red_side and self.winner == self.team_red_side:
+            return "red"
+
+        else:
+            "none"
