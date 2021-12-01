@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 
 Partida: Partida
 
-
+#generate a list of champions based on a list of champions in a span tag given
 def get_champion_list(span):
     list = []
     for item in range(len(span)):
@@ -19,7 +19,7 @@ def main():
     partidas = []
     tabela_atual = 4
 
-    # Pagina Url Desejada
+    # Put your leaguepedia match history Url here
     url = 'https://lol.fandom.com/wiki/LCK/2021_Season/Spring_Season/Match_History'
 
     headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; WOW64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -31,8 +31,8 @@ def main():
     tabela_toda = soup.body.findAll('tbody')
     tbody_tr = tabela_toda[tabela_atual].findAll('tr')
 
+    #append each match data to a Partida Object
     for item in range(3, len(tbody_tr)):
-
         # Get the match given starting by 3, then get all td tags of this match
         tr_desejado = tbody_tr[item]
         td_desejado = tr_desejado.findAll('td')
@@ -52,15 +52,16 @@ def main():
             Partida(data, patch, team_blue_side, team_red_side, winner, bans_blue_side, bans_red_side, picks_blue_side,
                     picks_red_side))
 
+    #some Aux variables
     blue_aux = 0
     red_aux = 0
+    separation_by = 1
     winner_blue_side = []
     winner_red_side = []
-    separation_by = 1
-
-    chunk_list = [partidas[i:i + separation_by] for i in range(0, len(partidas), separation_by)]
     matches = []
+    chunk_list = [partidas[i:i + separation_by] for i in range(0, len(partidas), separation_by)]
 
+    #separate the total matches by chunks and append to a list
     for chunk in chunk_list:
         for partida in chunk:
             if partida.get_winner() == 'red':
@@ -70,10 +71,11 @@ def main():
         winner_red_side.append(red_aux)
         winner_blue_side.append(blue_aux)
 
-
+    #generate a list to use in X axis(Temp)
     for i in range(1,201):
         matches.append(i)
 
+    #Generate the graph of win rate on each side
     plt.plot(matches, winner_blue_side)
     plt.plot(matches, winner_red_side)
     plt.title("Relação de vitorias")
