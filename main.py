@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 from Partida import Partida
+import pandas as pd
+from matplotlib import pyplot as plt
 
 Partida: Partida
 
@@ -54,7 +56,10 @@ def main():
     red_aux = 0
     winner_blue_side = []
     winner_red_side = []
-    chunk_list = [partidas[i:i + 10] for i in range(0, len(partidas), 10)]
+    separation_by = 1
+
+    chunk_list = [partidas[i:i + separation_by] for i in range(0, len(partidas), separation_by)]
+    matches = []
 
     for chunk in chunk_list:
         for partida in chunk:
@@ -65,9 +70,17 @@ def main():
         winner_red_side.append(red_aux)
         winner_blue_side.append(blue_aux)
 
-    print(f'Vezes vencidas lado azul {winner_blue_side}')
-    print(f'Vezes vencidas lado vermelho {winner_red_side}')
 
+    for i in range(1,201):
+        matches.append(i)
+
+    plt.plot(matches, winner_blue_side)
+    plt.plot(matches, winner_red_side)
+    plt.title("Relação de vitorias")
+    plt.xlabel("Numero de partidas")
+    plt.ylabel("Vitorias")
+    plt.legend(["Time Azul","Time Vermelho"])
+    plt.show()
 
 
 if __name__ == '__main__':
