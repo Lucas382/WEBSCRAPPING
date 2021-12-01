@@ -3,4 +3,4 @@ This application are intended to improve my abilities of getting data from a web
 
 Plans:
     Use te match history of a championship to extract information. ☑
-    Use information to generate graphical statistics. ☐
+    Use information to generate graphical statistics. ☑
