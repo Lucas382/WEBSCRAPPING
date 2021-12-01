@@ -32,6 +32,7 @@ def main():
     tbody_tr = tabela_toda[tabela_atual].findAll('tr')
 
     for item in range(3, len(tbody_tr)):
+
         # Get the match given starting by 3, then get all td tags of this match
         tr_desejado = tbody_tr[item]
         td_desejado = tr_desejado.findAll('td')
